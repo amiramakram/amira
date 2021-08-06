@@ -1,0 +1,146 @@
+def explore_data(dataset,start,end,rows_and_columns=False):
+    dataset_slice=dataset[start:end]
+    for row in dataset_slice:
+        print(row)
+        print('\n')
+    if rows_and_columns:
+        print('Number of rows:',len(dataset))
+        print('Number of columns:',len(dataset[0]))
+
+
+# In[2]:
+
+
+from csv import reader
+opened_file=open('googleplaystore.csv')
+read_file=reader(opened_file)
+android=list(read_file)
+android_header=android[0]
+android=android[1:]
+
+
+# In[3]:
+
+
+from csv import reader
+opened_file=open('AppleStore.csv')
+read_file=reader(opened_file)
+android=list(read_file)
+vpp_header=android[0]
+vpp=android[1:]
+
+
+# In[4]:
+
+
+print(android_header)
+print('\n')
+explore_data(android,0,3,True)
+
+
+# In[11]:
+
+
+
+print(android_header)
+print('\n')
+print(android[0])
+
+
+# In[6]:
+
+
+android.remove(10472)
+
+
+# In[7]:
+
+
+duplicate_apps =[]
+uniqe_apps=[]
+
+for app in android :
+    name=app[0]
+    if name in uniqe_apps:
+        duplicate_apps.append(name)
+    else:uniqe_apps.append(name)
+print('Number ofduplicate_apps ', len(duplicate_apps))
+print('\n')
+print('uniqe_apps',uniqe_apps)
+print('\n')
+print('Examples of duplicate_apps',duplicate_apps[:15])
+         
+
+
+# In[187]:
+
+
+for app in android:
+    name = app[0]
+    if name == 'Instagram':
+      print(app)
+
+
+# In[102]:
+
+
+reviews_max={ }
+android=android[1:]
+for name in android:
+    name=app[0]
+    reviews=app[3]
+    n_reviews=float(reviews)
+    if name in reviews_max and reviews_max[name] <n_reviews :
+        reviews_max[name]=n_reviews 
+    elif name not in reviews_max:
+        reviews_max[name]=n_reviews    
+android_clean=[]
+already_added=[]
+for app in android:
+    name=app[0]
+    n_reviews=app[3]
+    reviews=float(reviews)
+    if app not in android_clean:
+     if n_review == reviews_max[app]:
+         android_clean.append(app)
+    else:
+            already_added.append(app)
+            
+print(android_clean)
+
+
+# In[215]:
+
+
+def readAPPsNames( filepath):   
+    file = open(filepath, "r")
+    fileContent=file.read()
+    listAppsNames=fileContent.split('\n')
+    file.close()
+    return listAppsNames
+def removeNonEnglishApps(listAppsNames):
+    listEnglishApps=[]
+    for appName in listAppsNames:       
+        if(isEnglishApp(appName)):
+            listEnglishApps.append(appName)
+    return listEnglishApps
+def isEnglishApp(appName):
+    non_english_char_count=0
+    for char in appName:
+        char_ascii_code=ord(char)
+        if char_ascii_code < 0 or char_ascii_code > 127:
+            non_english_char_count=non_english_char_count + 1
+        if non_english_char_count > 3:
+               return False    
+        return True
+
+if __name__ == '__main__':  
+    filepath='googleplaystore.txt'
+    #listAppsNames=readAPPsNames('googleplaystore.txt')
+listEnglishApps=removeNonEnglishApps(listAppsNames)
+   # print(english Apps) 
+for app in listEnglishApps:
+            print(app)
+
+
+
